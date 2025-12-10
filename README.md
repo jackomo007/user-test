@@ -275,8 +275,7 @@ src/
     UserCard/
       UserCard.tsx
       UserCard.css
-      UserCard.stories.tsx   (optional)
-      README.md              (optional docs)
+      UserCard.stories.tsx
   hooks/
     useUsers.ts
   pages/

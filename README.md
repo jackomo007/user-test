@@ -1,73 +1,323 @@
-# React + TypeScript + Vite
+Here is a **clean, professional, enterprise-ready README.md** for your project.
+It explains architecture, reasoning, design decisions, testing strategy, and bonus points — perfect for a hiring manager or technical reviewer evaluating your take-home assignment.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+You can copy/paste this directly into your repo.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# 🚀 Users Directory – React + TypeScript Feature
 
-## React Compiler
+A structured, scalable, and test-driven React + TypeScript implementation demonstrating:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Reusable component architecture
+- Clean state management
+- Design system tokens
+- Filtering + data fetching
+- Unit testing with Vitest + Testing Library
+- Optional Storybook documentation
 
-## Expanding the ESLint configuration
+This feature simulates a realistic production environment and showcases strong frontend engineering practices.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📘 Table of Contents
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Design System](#design-system)
+- [Reusable Components](#reusable-components)
+- [Fetching Logic](#fetching-logic)
+- [Filtering](#filtering)
+- [Testing](#testing)
+- [Storybook (Optional)](#storybook-optional)
+- [How to Run](#how-to-run)
+- [Folder Structure](#folder-structure)
+- [Possible Improvements](#possible-improvements)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 📝 Overview
+
+This project implements a **Users** screen that fetches mock user data from:
+
+```
+https://jsonplaceholder.typicode.com/users
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+It displays each user using a reusable `<UserCard />` component, supports two layout variants (`compact` and `full`), and includes a client-side name filter.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The goal is to demonstrate production-grade React application patterns:
+clean code, separation of concerns, testability, and maintainable UI architecture.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## ⭐ Features
+
+### Core Requirements
+
+✔ Fetch users from a public API
+✔ Reusable `<UserCard />` component
+✔ Compact + Full layout variants
+✔ Client-side filtering by name
+✔ Responsive layout
+✔ Clean folder structure
+✔ Unit test that verifies filtering logic
+
+### Bonus
+
+🎨 Simple design-system tokens (spacing, colors, typography)
+🧪 Strong testing setup (Vitest + Testing Library)
+📚 Storybook stories documenting the `UserCard` component (optional)
+
+---
+
+## 🛠 Tech Stack
+
+**Frontend:**
+
+- React 19 + TypeScript
+- Vite
+- CSS Modules / CSS files
+- Design system via CSS custom properties (tokens)
+
+**Testing:**
+
+- Vitest
+- @testing-library/react
+- @testing-library/jest-dom
+- @testing-library/user-event
+
+**Documentation (optional):**
+
+- Storybook
+
+---
+
+## 🧱 Architecture
+
+The project emphasizes **separation of concerns**:
+
+| Layer         | Responsibility                                          |
+| ------------- | ------------------------------------------------------- |
+| `components/` | UI building blocks (e.g., `UserCard`)                   |
+| `pages/`      | Page-level containers (e.g., `Users`)                   |
+| `hooks/`      | Data-fetching + state encapsulation (`useUsers`)        |
+| `styles/`     | Global tokens (spacing, colors, typography)             |
+| `types/`      | Strongly typed models (`User`, `UserStatus`, `ApiUser`) |
+| `tests/`      | Behavioral tests validating UI interactions             |
+
+This structure enables scalability and ensures components remain reusable, lightweight, and testable.
+
+---
+
+## 🎨 Design System
+
+The app uses a lightweight design system implemented with **CSS variables**.
+
+Located in:
+`src/styles/tokens.css`
+
+### Includes:
+
+- Color tokens
+- Spacing scale (`--space-1` → `--space-6`)
+- Typography tokens (`--font-size-sm`, etc.)
+- Radius and shadows
+- Status colors for `active`, `pending`, and `inactive`
+
+This allows consistent styling across components and mirrors modern design system best practices.
+
+---
+
+## 🧩 Reusable Components
+
+### `<UserCard />`
+
+A versatile UI component with the following props:
+
+```ts
+interface UserCardProps {
+  name: string;
+  role: string;
+  status: UserStatus;
+  avatarUrl: string;
+  variant?: "compact" | "full";
+}
 ```
+
+### Highlights
+
+- Two layout variants
+- Built with design tokens
+- Status badge theming
+- Responsive behavior
+- Zero business logic – purely UI
+
+---
+
+## 🔄 Fetching Logic
+
+A dedicated hook handles API communication:
+
+`src/hooks/useUsers.ts`
+
+```ts
+export function useUsers(): UseUsersResult {
+  // manages loading, error, mapping, and state
+}
+```
+
+### Why a hook?
+
+- Reusable
+- Easy to test
+- Encapsulates mapping from API → UI-safe `User` model
+- Keeps `Users` page clean and declarative
+
+---
+
+## 🔍 Filtering
+
+The `Users` page includes a client-side filter:
+
+```tsx
+const filteredUsers = useMemo(() => {
+  return users.filter((user) =>
+    user.name.toLowerCase().includes(filter.toLowerCase())
+  );
+}, [users, filter]);
+```
+
+This is fast, memoized, and easy to extend (role filter, status filter, etc.).
+
+---
+
+## 🧪 Testing
+
+One required test: verify filtering reduces the number of rendered cards.
+
+Test location:
+`src/pages/Users/Users.test.tsx`
+
+### Covered:
+
+✔ Mocks fetch
+✔ Waits for initial UI render
+✔ Types into input
+✔ Asserts filtered results
+
+Testing tools:
+
+- Vitest
+- React Testing Library
+- Jest-DOM matchers
+
+This test simulates real user behavior (not implementation details).
+
+---
+
+## 📚 Storybook (Optional)
+
+A Storybook setup is included to demonstrate component documentation.
+
+Stories located at:
+
+```
+src/components/UserCard/UserCard.stories.tsx
+```
+
+Stories include:
+
+- Full card layout
+- Compact card layout
+- Different user statuses
+- Edge cases (long names, missing avatar, etc.)
+
+This gives interviewers **proof** of component reusability and UI thinking.
+
+---
+
+## ▶️ How to Run
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Start dev server
+
+```bash
+npm run dev
+```
+
+### Run tests
+
+```bash
+npm run test
+```
+
+### Start Storybook (optional)
+
+```bash
+npm run storybook
+```
+
+---
+
+## 📁 Folder Structure
+
+```
+src/
+  components/
+    UserCard/
+      UserCard.tsx
+      UserCard.css
+      UserCard.stories.tsx   (optional)
+      README.md              (optional docs)
+  hooks/
+    useUsers.ts
+  pages/
+    Users/
+      Users.tsx
+      Users.css
+      Users.test.tsx
+  styles/
+    tokens.css
+  types/
+    user.ts
+  index.css
+  main.tsx
+```
+
+---
+
+## 🚀 Possible Improvements
+
+Future extensions to show senior-level thinking:
+
+- Status filter + role filter
+- Skeleton loading state
+- Error state with retry button
+- Dark mode using token themes
+- Pagination or virtualization for large lists
+- Replace CSS files with CSS Modules or a CSS-in-JS solution
+- Move tokens to `theme.ts` and generate CSS automatically
+- API abstraction with caching (e.g., React Query)
+
+---
+
+## 🏁 Final Notes
+
+This project demonstrates:
+
+- Strong React fundamentals
+- Scalable component architecture
+- Clean TypeScript modeling
+- Thoughtful design system usage
+- Testing discipline
+- Documentation (README + Storybook)
+
+---

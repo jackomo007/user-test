@@ -1,85 +1,86 @@
 .users-page {
   max-width: 960px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: var(--space-4);
 }
 
 .users-page__header {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
 }
 
 .users-page__title {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: var(--font-size-lg);
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text-main);
 }
 
 .users-page__subtitle {
-  margin: 0.25rem 0 0;
-  font-size: 0.9rem;
-  color: #64748b;
+  margin: var(--space-1) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
 }
 
 .users-page__controls {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .users-page__filter-input {
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.5rem;
-  border: 1px solid #cbd5f5;
-  font-size: 0.9rem;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-subtle);
+  font-size: var(--font-size-sm);
+  background: var(--color-bg-surface);
 }
 
 .users-page__filter-input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 1px #3b82f6;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary-soft);
 }
 
 .users-page__variant-toggle {
   display: inline-flex;
-  border-radius: 9999px;
-  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border-subtle);
   overflow: hidden;
 }
 
 .users-page__variant-toggle button {
-  padding: 0.35rem 0.9rem;
+  padding: var(--space-1) var(--space-3);
   border: none;
   background: transparent;
-  font-size: 0.8rem;
+  font-size: var(--font-size-xs);
   cursor: pointer;
 }
 
 .users-page__variant-toggle button.is-active {
-  background: #1d4ed8;
+  background: var(--color-primary);
   color: #ffffff;
 }
 
 /* State messages */
 .users-page__state {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #475569;
+  margin-top: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
 }
 
 .users-page__state--error {
-  color: #b91c1c;
+  color: var(--color-status-inactive-text);
 }
 
-/* Responsive */
+/* Responsive grid */
 .users-page__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.75rem;
-  margin-top: 1rem;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
 }
 
 @media (min-width: 640px) {
